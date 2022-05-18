@@ -50,9 +50,16 @@
 
         let checkboxs = document.querySelectorAll('.kuang>input')
         document.onmousedown = function (event) {
+            for (let i = 0; i < document.body.children.length; i++) {
+                if (i !== 0 && i !== 1) {
+                    document.body.removeChild(document.body.children[i])
+                }
+            }
+
             var x, y, minx, miny, chu, chuy, maxx, maxy
             var ischeck = true
             var ck = document.createElement('div')
+            ck.className = "kk"
             ck.style.cssText = 'position:absolute;width:0;height:0px;border:1px dashed black'
             document.body.appendChild(ck)
             // console.log(event);
@@ -87,7 +94,12 @@
             }
             document.onmouseup = function (event) {
                 ischeck = false
-                document.body.removeChild(ck)
+                // document.body.removeChild(ck)
+                for (let i = 0; i < document.body.children.length; i++) {
+                    if (i !== 0 && i !== 1) {
+                        document.body.removeChild(document.body.children[i])
+                    }
+                }
             }
             checkboxs.forEach((x) => {
                 x.checked = false
