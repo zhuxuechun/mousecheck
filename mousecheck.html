@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .kuang {
+            width: 120px;
+            display: flex;
+            height: 80px;
+            /* border: 1px solid red; */
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .check {
+            flex: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="kuang">
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+        <input type="checkbox" class="check" />
+    </div>
+    <script>
+
+
+        let checkboxs = document.querySelectorAll('.kuang>input')
+        document.onmousedown = function (event) {
+            var x, y, minx, miny, chu, chuy, maxx, maxy
+            var ischeck = true
+            var ck = document.createElement('div')
+            ck.style.cssText = 'position:absolute;width:0;height:0px;border:1px dashed black'
+            document.body.appendChild(ck)
+            // console.log(event);
+            chux = event.clientX
+            chuy = event.clientY
+            document.onmousemove = function (event) {
+                if (ischeck) {
+                    x = chux - event.clientX
+                    y = chuy - event.clientY
+                    ck.style.width = Math.abs(x) + 'px'
+                    ck.style.height = Math.abs(y) + 'px'
+                    ck.style.left = Math.min(chux, event.clientX) + 'px'
+                    ck.style.top = Math.min(chuy, event.clientY) + 'px'
+                    minx = Math.min(chux, event.clientX)
+                    miny = Math.min(chuy, event.clientY)
+                    maxx = Math.max(chux, event.clientX)
+                    maxy = Math.max(chuy, event.clientY)
+                    for (let i = 0; i < checkboxs.length; i++) {
+                        // console.log(checkboxs[i].offsetTop + checkboxs[i].offsetHeight);
+                        // console.log(minx, maxx, miny, maxy);
+                        if ((checkboxs[i].offsetTop + checkboxs[i].offsetHeight) > miny && (checkboxs[i].offsetTop + checkboxs[i].offsetHeight) < maxy
+                            && checkboxs[i].offsetWidth + checkboxs[i].offsetLeft > minx && checkboxs[i].offsetLeft + checkboxs[i].offsetWidth < maxx
+                        ) {
+                            checkboxs[i].checked = true
+                        }
+                        else {
+                            checkboxs[i].checked = false
+                        }
+                    }
+                }
+
+            }
+            document.onmouseup = function (event) {
+                ischeck = false
+                document.body.removeChild(ck)
+            }
+            checkboxs.forEach((x) => {
+                x.checked = false
+            })
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
